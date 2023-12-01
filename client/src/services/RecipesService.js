@@ -21,5 +21,16 @@ class RecipesService {
         AppState.recipes.push(newRecipe)
         return newRecipe
     }
+    async favoriteRecipe(recipeId) {
+        const res = await api.post(`api/favorites`, { recipeId });
+        AppState.myFavoriteRecipes.push(new Recipe(res.data));
+    }
+
+    async unfavoriteRecipe(recipeId) {
+        const res = await api.delete(`api/favorites${recipeId}`);
+        AppState.myFavoriteRecipes = AppState.myFavoriteRecipes.filter(fav => fav.recipeId != recipeId);
+        return res.data
+    }
+
 }
 export const recipesService = new RecipesService()

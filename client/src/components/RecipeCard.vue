@@ -4,6 +4,10 @@
             <div class="col-4 "> -->
         <img @click="setActiveRecipe(recipeProp)" type="button" data-bs-toggle="modal" data-bs-target="#recipeModal"
             class="img-fluid" :src="recipeProp.img" alt="recipe image">
+        <span v-if="isFavRecipe" @click.stop="unfavoriteRecipe()" role="button"><i
+                class="fs-2 mdi mdi-heart text-center"></i></span>
+        <span v-else @click.stop="favoriteRecipe()" role="button"><i
+                class="fs-2 mdi mdi-heart-outline text-center"></i></span>
         <p class="fs-5 text-center">{{ recipeProp.title }}</p>
         <p class="text-center ">{{ recipeProp.category }}</p>
         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -23,18 +27,39 @@ import { computed, reactive, onMounted } from 'vue';
 import { Recipe } from '../models/Recipe.js';
 import RecipeDetails from './RecipeDetails.vue';
 import RecipeModal from './RecipeModal.vue';
-import { useRoute } from 'vue-router';
-
 import { recipesService } from '../services/RecipesService.js';
+import Pop from '../utils/Pop.js';
+import { ingredientsService } from '../services/IngredientsService.js';
 export default {
     props: { recipeProp: { type: Recipe, required: true } },
-    setup() {
+    setup(props) {
         // const route = useRoute();
         return {
+            myFavoriteRecipes: computed(() => AppState.myFavoriteRecipes),
+            isFavRecipe: computed(() => AppState.myFavoriteRecipes.find((recipe) => recipe.recipeId == props.recipeProp.id)),
             recipes: computed(() => AppState.recipes),
+            ingredients: computed(() => AppState.ingredients),
             setActiveRecipe(recipeProp) {
                 recipesService.setActiveRecipe(recipeProp)
-            }
+                const recipeId = recipeProp.id
+                ingredientsService.getIngredientsByRecipeId(recipeId)
+            },
+            async favoriteRecipe() {
+                try {
+                    const recipeId = props.recipeProp.id;
+                    await recipesService.favoriteRecipe(recipeId);
+                }
+                catch (error) { Pop.error(error) }
+            },
+
+            async unfavoriteRecipe() {
+                try {
+                    const recipeId = props.recipeProp.id;
+                    await recipesService.unfavoriteRecipe(recipeId);
+                }
+                catch (error) { Pop.error(error) }
+            },
+
         };
     },
     components: { RecipeDetails, RecipeModal }
