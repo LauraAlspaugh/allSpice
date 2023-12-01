@@ -1,5 +1,6 @@
 <template>
   <h1>Welcome to All Spice.</h1>
+  <button @click="createRecipe()">Create Recipe</button>
   <div class="container-fluid">
     <section class="row">
       <div v-for="recipe in recipes" :key="recipe.id" class="col-4 p-4">

@@ -10,5 +10,9 @@ class RecipesService {
         AppState.recipes = res.data.map(pojo => new Recipe(pojo))
 
     }
+    setActiveRecipe(recipeProp) {
+
+        AppState.activeRecipe = recipeProp
+    }
 }
 export const recipesService = new RecipesService()

@@ -1,6 +1,8 @@
 <template>
-    <div class="col-12">
-
+    <div v-if="recipe">
+        <p class="fs-3">{{ recipe.title }}</p>
+        <p class="fs-5">{{ recipe.instructions }}</p>
+        <img :src="recipe.img" alt="">
     </div>
 </template>
 
@@ -14,7 +16,7 @@ export default {
     setup() {
 
         return {
-            recipes: computed(() => AppState.recipes)
+            recipe: computed(() => AppState.activeRecipe)
         }
     }
 };
