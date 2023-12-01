@@ -26,13 +26,16 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { AppState } from '../AppState';
 import { logger } from '../utils/Logger.js';
 import { accountService } from '../services/AccountService.js';
 export default {
   setup() {
     const editable = ref({})
+    watchEffect(() => {
+      editable.value = AppState.account;
+    })
     return {
       editable,
       account: computed(() => AppState.account),

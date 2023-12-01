@@ -5,7 +5,8 @@ CREATE TABLE
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         name varchar(255) COMMENT 'User Name',
         email varchar(255) COMMENT 'User Email',
-        picture varchar(255) COMMENT 'User Picture'
+        picture varchar(255) COMMENT 'User Picture',
+        bio VARCHAR(255) COMMENT 'User bio'
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
@@ -67,4 +68,12 @@ FROM recipes rec
     JOIN accounts acc ON rec.creatorID = acc.id
 WHERE rec.id = 1;
 
+SELECT * FROM favorites
+
 DROP TABLE recipes;
+
+DROP TABLE ingredients;
+
+DROP TABLE accounts;
+
+DROP TABLE favorites;

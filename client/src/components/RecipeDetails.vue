@@ -3,7 +3,7 @@
         <section class="row">
             <div v-if="recipe" class="col-12 text-center">
 
-                <p class="fs-2">{{ recipe.title }}</p>
+                <p class="fs-2 recipe-name">{{ recipe.title }}</p>
             </div>
         </section>
         <section class="row">
@@ -18,7 +18,7 @@
                 <form @submit.prevent="addInstructions()">
                     <div class="mb-3">
                         <label for="instructions" class="form-label"></label>
-                        <input v-model="editable.instructions" type="text" class="form-control" id="instructions"
+                        <input v-model="editable2.instructions" type="text" class="form-control" id="instructions"
                             placeholder="Add Instructions" aria-describedby="emailHelp">
                     </div>
 
@@ -26,21 +26,32 @@
                 </form>
 
             </div>
-            <div v-for="ingredient in ingredients" :key="ingredient.id" class="col-3 p-4 recipe-details">
-                <span>{{ ingredient.quantity }} {{ ingredient.name }}</span>
+
+            <div class="col-3 p-4 recipe-details">
+                <p class="fs-4 text-center">Ingredients</p>
+                <p v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient-card">{{ ingredient.quantity
+                }} {{ ingredient.name
+}}</p>
 
 
-                <!-- <p>{{ ingredient.name }}</p> -->
+
+
                 <form @submit.prevent="addIngredient()">
                     <div class="mb-3">
-                        <label for="ingredients" class="form-label"></label>
-                        <input type="text" class="form-control" id="ingredients" placeholder="Add Ingredient"
+                        <label for="quantity" class="form-label"></label>
+                        <input v-model="editable.quantity" type="text" class="form-control" id="quantity"
+                            placeholder="Amount" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label"></label>
+                        <input v-model="editable.name" type="text" class="form-control" id="name" placeholder="Name"
                             aria-describedby="emailHelp">
                     </div>
 
                     <button type="submit" class="btn btn-outline-dark">Submit</button>
                 </form>
             </div>
+
 
         </section>
     </div>
@@ -64,6 +75,7 @@ export default {
             // getIngredientsByRecipeId()
         })
         const editable = ref({})
+        const editable2 = ref({})
         async function getIngredientsByRecipeId() {
             try {
                 // const recipeId = AppState.activeRecipe.id
@@ -77,10 +89,35 @@ export default {
 
         return {
             editable,
+            editable2,
             recipe: computed(() => AppState.activeRecipe),
             recipes: computed(() => AppState.recipes),
             ingredients: computed(() => AppState.ingredients),
-            account: computed(() => AppState.account)
+            account: computed(() => AppState.account),
+            async addInstructions() {
+                try {
+                    const instructionData = editable2.value
+                    instructionData.recipeId = AppState.activeRecipe.id
+                    await recipesService.addInstructions(instructionData, instructionData.recipeId)
+
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+
+                }
+            },
+            async addIngredient() {
+                try {
+                    const ingredientData = editable.value
+                    ingredientData.recipeId = AppState.activeRecipe.id
+                    await ingredientsService.addIngredient(ingredientData)
+                    editable.value = {}
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+
+                }
+            }
         }
     }
 };
@@ -98,5 +135,15 @@ img {
 .recipe-details {
     border: black solid 2px;
     border-radius: 5px;
+}
+
+.ingredient-card {
+    padding: 3px;
+
+}
+
+.recipe-name {
+    color: #7F8C8D;
+    font-family: 'Pinyon Script', cursive;
 }
 </style>

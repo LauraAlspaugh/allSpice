@@ -31,6 +31,18 @@ class RecipesService {
         AppState.myFavoriteRecipes = AppState.myFavoriteRecipes.filter(fav => fav.recipeId != recipeId);
         return res.data
     }
+    async addInstructions(recipeData, recipeId) {
+        const res = await api.put(`api/recipes/${recipeId}`, recipeData)
+        logger.log('adding instructions', res.data)
+        const newRecipe = new Recipe(res.data)
+        AppState.activeRecipe = newRecipe
+        const recipeIndex = AppState.recipes.findIndex(recipe => recipe.id == newRecipe.id)
+        if (recipeIndex == -1) {
+            throw new Error('no recipe with this id')
+        } AppState.recipes.splice(recipeIndex, 1, newRecipe)
+    }
 
 }
 export const recipesService = new RecipesService()
+
+// (recipeIndex, 0, newRecipe)

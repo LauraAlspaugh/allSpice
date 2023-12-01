@@ -4,7 +4,7 @@
             <div class="col-4 "> -->
         <img @click="setActiveRecipe(recipeProp)" type="button" data-bs-toggle="modal" data-bs-target="#recipeModal"
             class="img-fluid" :src="recipeProp.img" alt="recipe image">
-        <span v-if="isFavRecipe" @click.stop="unfavoriteRecipe()" role="button"><i
+        <span v-if="recipe" @click.stop="unfavoriteRecipe()" role="button"><i
                 class="fs-2 mdi mdi-heart text-center"></i></span>
         <span v-else @click.stop="favoriteRecipe()" role="button"><i
                 class="fs-2 mdi mdi-heart-outline text-center"></i></span>

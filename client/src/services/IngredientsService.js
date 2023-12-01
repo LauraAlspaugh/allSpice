@@ -10,5 +10,12 @@ class IngredientsService {
         AppState.ingredients = res.data.map(pojo => new Ingredient(pojo))
 
     }
+    async addIngredient(ingredientData) {
+        const res = await api.post('api/ingredients', ingredientData)
+        logger.log('adding ingredient!', res.data)
+        const newIngredient = new Ingredient(res.data)
+        AppState.ingredients.push(newIngredient)
+        return newIngredient
+    }
 }
 export const ingredientsService = new IngredientsService()
