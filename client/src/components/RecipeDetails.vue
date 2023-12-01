@@ -23,4 +23,11 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+img {
+    position: center;
+    object-fit: cover;
+    width: 800px;
+    height: 600px;
+}
+</style>

@@ -1,6 +1,7 @@
 <template>
   <h1>Welcome to All Spice.</h1>
-  <button @click="createRecipe()">Create Recipe</button>
+  <button type="button" data-bs-toggle="modal" data-bs-target="#newRecipeModal">Create
+    Recipe</button>
   <div class="container-fluid">
     <section class="row">
       <div v-for="recipe in recipes" :key="recipe.id" class="col-4 p-4">
@@ -8,6 +9,7 @@
       </div>
     </section>
   </div>
+  <NewRecipeModal />
 </template>
 
 <script>
@@ -17,6 +19,7 @@ import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { AppState } from '../AppState.js';
 import RecipeCard from '../components/RecipeCard.vue';
+import NewRecipeModal from '../components/NewRecipeModal.vue';
 
 export default {
   setup() {
@@ -36,7 +39,7 @@ export default {
       recipes: computed(() => AppState.recipes)
     };
   },
-  components: { RecipeCard }
+  components: { RecipeCard, NewRecipeModal }
 }
 </script>
 
