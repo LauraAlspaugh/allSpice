@@ -1,8 +1,14 @@
 <template>
-  <h1>Welcome to All Spice.</h1>
-  <button type="button" data-bs-toggle="modal" data-bs-target="#newRecipeModal">Create
-    Recipe</button>
   <div class="container-fluid">
+    <section class="row">
+      <div class="col-12 text-center">
+        <p class="text-center p-2 recipe-name">Cherish your family and their cooking.</p>
+        <button class="rounded pill p-2" type="button" data-bs-toggle="modal" data-bs-target="#newRecipeModal">Create
+          Recipe</button>
+
+      </div>
+
+    </section>
     <section class="row">
       <div v-for="recipe in recipes" :key="recipe.id" class="col-4 p-4">
         <RecipeCard :recipeProp="recipe" />
@@ -43,4 +49,10 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.recipe-name {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 50px;
+  color: #935116
+}
+</style>
