@@ -17,5 +17,12 @@ class IngredientsService {
         AppState.ingredients.push(newIngredient)
         return newIngredient
     }
+    async destroyIngredient(ingredientId) {
+        const res = await api.delete(`api/ingredients/${ingredientId}`)
+        logger.log('destroying ingredient', res.data)
+        const ingredientIndex = AppState.ingredients.findIndex(ingredient => ingredient.id == ingredientId)
+        if (ingredientIndex == -1) { throw new Error('No ingredient found with this id') }
+        AppState.ingredients.splice(ingredientIndex, 1)
+    }
 }
 export const ingredientsService = new IngredientsService()

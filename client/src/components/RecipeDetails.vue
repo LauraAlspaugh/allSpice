@@ -14,7 +14,8 @@
             </div>
             <div v-if="recipe" class="col-3 p-4 recipe-details me-5">
                 <p class="fs-4 text-center">Instructions</p>
-                <p class="fs-5">{{ recipe.instructions }}</p>
+                <p class="fs-5">{{ recipe.instructions }} <i @click="destroyInstructions()" class="mdi mdi-close fs-4"
+                        type="button"></i> </p>
                 <form @submit.prevent="addInstructions()">
                     <div class="mb-3">
                         <label for="instructions" class="form-label"></label>
@@ -30,8 +31,8 @@
             <div class="col-3 p-4 recipe-details">
                 <p class="fs-4 text-center">Ingredients</p>
                 <p v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient-card">{{ ingredient.quantity
-                }} {{ ingredient.name
-}}</p>
+                }} {{ ingredient.name }} <i @click="destroyIngredient()" class="mdi mdi-close fs-4" type="button"></i>
+                </p>
 
 
 
@@ -93,6 +94,7 @@ export default {
             recipe: computed(() => AppState.activeRecipe),
             recipes: computed(() => AppState.recipes),
             ingredients: computed(() => AppState.ingredients),
+            ingredient: computed(() => AppState.activeIngredient),
             account: computed(() => AppState.account),
             async addInstructions() {
                 try {
@@ -112,6 +114,32 @@ export default {
                     ingredientData.recipeId = AppState.activeRecipe.id
                     await ingredientsService.addIngredient(ingredientData)
                     editable.value = {}
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+
+                }
+            },
+            async destroyIngredient() {
+                try {
+                    const wantstoDestroy = await Pop.confirm('Are you sure you want to destroy this Ingredient? ')
+                    if (!wantstoDestroy) {
+                        return
+                    } const ingredientId = AppState.activeRecipe.ingredients.id
+                    await ingredientsService.destroyIngredient(ingredientId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+
+                }
+            },
+            async destroyInstructions() {
+                try {
+                    const wantstoDestroy = await Pop.confirm('Are you sure you want to destroy these instructions? ')
+                    if (!wantstoDestroy) {
+                        return
+                    } const instructionsId = AppState.activeRecipe.instructions.id
+                    await recipesService.destroyInstructions(instructionsId)
                 } catch (error) {
                     logger.error(error)
                     Pop.error(error)
