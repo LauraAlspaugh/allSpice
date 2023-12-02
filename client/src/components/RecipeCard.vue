@@ -1,5 +1,5 @@
 <template>
-    <div class=" recipe-card mb-3">
+    <div class=" recipe-card mb-3 ">
         <!-- <section class="row">
             <div class="col-4 "> -->
         <img @click="setActiveRecipe(recipeProp)" type="button" data-bs-toggle="modal" data-bs-target="#recipeModal"
@@ -8,6 +8,7 @@
                 class="fs-2 mdi mdi-heart text-center"></i></span>
         <span v-else @click.stop="favoriteRecipe()" role="button"><i
                 class="fs-2 mdi mdi-heart-outline text-center"></i></span>
+        <i class="mdi mdi-close fs-2" type="button" @click="destroyRecipe()"></i>
         <p class="fs-5 text-center">{{ recipeProp.title }}</p>
         <p class="text-center ">{{ recipeProp.category }}</p>
         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -30,6 +31,7 @@ import RecipeModal from './RecipeModal.vue';
 import { recipesService } from '../services/RecipesService.js';
 import Pop from '../utils/Pop.js';
 import { ingredientsService } from '../services/IngredientsService.js';
+import { logger } from '../utils/Logger.js';
 export default {
     props: { recipeProp: { type: Recipe, required: true } },
     setup(props) {
@@ -59,6 +61,18 @@ export default {
                 }
                 catch (error) { Pop.error(error) }
             },
+            async destroyRecipe() {
+                try {
+                    const wantstoDestroy = await Pop.confirm('Are you sure you want to destroy this Recipe? ')
+                    if (!wantstoDestroy) {
+                        return
+                    } await recipesService.destroyRecipe(props.recipeProp.id)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+
+                }
+            }
 
         };
     },
@@ -69,7 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 .recipe-card {
-    width: 18rem;
+    width: 20rem;
     border: 2px solid black;
     padding: 5px;
     border-radius: 7px;

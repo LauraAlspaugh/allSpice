@@ -21,7 +21,7 @@
       </div>
     </div>
     <section class="row">
-      <div v-for="recipe in recipes" :key="recipe.id" class="col-4 p-4">
+      <div v-for="recipe in recipes" :key="recipe.id" class="col-4 p-4 d-flex justify-content-center ">
         <RecipeCard :recipeProp="recipe" />
       </div>
     </section>

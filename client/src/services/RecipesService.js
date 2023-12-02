@@ -41,6 +41,13 @@ class RecipesService {
             throw new Error('no recipe with this id')
         } AppState.recipes.splice(recipeIndex, 1, newRecipe)
     }
+    async destroyRecipe(recipeId) {
+        const res = await api.delete(`api/recipes/${recipeId}`)
+        logger.log('destroying recipe', res.data)
+        const recipeIndex = AppState.recipes.findIndex(recipe => recipe.id == recipeId)
+        if (recipeIndex == -1) { throw new Error('No recipe found with this id') }
+        AppState.recipes.splice(recipeIndex, 1)
+    }
 
 }
 export const recipesService = new RecipesService()
