@@ -75,6 +75,13 @@ a:hover {
 }
 
 .nav-color {
-  background-color: #935116;
+  /* background-color: #7F8C8D; */
+  background-color: #935116
+}
+
+.plan-title {
+  font-family: 'Pinyon Script', cursive;
+
+  color: #D5D8DC
 }
 </style>

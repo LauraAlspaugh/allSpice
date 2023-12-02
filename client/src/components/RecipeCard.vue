@@ -83,7 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 .recipe-card {
-    width: 20rem;
+    width: 22rem;
     border: 2px solid black;
     padding: 5px;
     border-radius: 7px;
@@ -98,7 +98,7 @@ export default {
 
 img {
     border-radius: 7px;
-    width: 20rem;
+    width: 22rem;
     height: 18rem;
     object-fit: cover;
     position: center;

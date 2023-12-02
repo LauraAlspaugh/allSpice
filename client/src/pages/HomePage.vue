@@ -1,10 +1,11 @@
 <template>
   <div class="container-fluid">
-    <section class="row">
+    <section class="row home-background p-5">
       <div class="col-12 text-center">
-        <p class="text-center p-2 recipe-name">Cherish your family and their cooking.</p>
-        <button class="rounded pill p-2" type="button" data-bs-toggle="modal" data-bs-target="#newRecipeModal">Create
-          Recipe</button>
+        <p class="text-center p-1 recipe-name">Cherish your family and their cooking.</p>
+        <button class="rounded-circle recipe-button p-2" type="button" data-bs-toggle="modal"
+          data-bs-target="#newRecipeModal">
+          <i class="mdi mdi-plus fs-2" title="create a recipe"></i></button>
 
       </div>
 
@@ -80,6 +81,17 @@ export default {
 .recipe-name {
   font-family: 'Pinyon Script', cursive;
   font-size: 50px;
-  color: #935116
+  color: #D5D8DC
+}
+
+.home-background {
+  background-image: url("https://i0.wp.com/www.faithanddoubt.com/wp-content/uploads/hossein-farahani-pqJ21tErTgI-unsplash-edited-scaled.jpg?fit=2560%2C1437&ssl=1");
+  position: center;
+  background-repeat: no-repeat;
+  object-fit: cover;
+}
+
+.recipe-button {
+  background-color: #D5D8DC;
 }
 </style>

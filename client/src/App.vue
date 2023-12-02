@@ -39,6 +39,6 @@ footer {
 }
 
 .nav-color {
-  background-color: #935116;
+  background-color: #935116
 }
 </style>
