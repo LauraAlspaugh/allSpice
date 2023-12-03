@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-sm navbar-dark nav-color px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <i class="mdi mdi-feather fs-1"><span class="plan-title fs-1 p-1">All Spice</span></i>
+        <i class="mdi mdi-shaker-outline fs-1"><span class="plan-title fs-1 p-0">All Spice</span></i>
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -76,7 +76,7 @@ a:hover {
 
 .nav-color {
   /* background-color: #7F8C8D; */
-  background-color: #935116
+  background-color: #7F8C8D
 }
 
 .plan-title {

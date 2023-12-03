@@ -4,12 +4,12 @@
             <div class="col-4 "> -->
         <img @click="setActiveRecipe(recipeProp)" type="button" data-bs-toggle="modal" data-bs-target="#recipeModal"
             class="img-fluid" :src="recipeProp.img" alt="recipe image">
-        <span v-if="recipe" @click.stop="unfavoriteRecipe()" role="button"><i
+        <span v-if="!myFavoriteRecipes" @click.stop="unfavoriteRecipe()" role="button"><i
                 class="fs-2 mdi mdi-heart text-center"></i></span>
-        <span v-else @click.stop="favoriteRecipe()" role="button"><i
+        <span v-else @click.stop="favoriteRecipe(recipeProp.id)" role="button"><i
                 class="fs-2 mdi mdi-heart-outline text-center"></i></span>
         <i class="mdi mdi-close fs-2" type="button" @click="destroyRecipe()"></i>
-        <p class="fs-5 text-center">{{ recipeProp.title }}</p>
+        <p class="fs-3 text-center recipe-name">{{ recipeProp.title }}</p>
         <p class="text-center ">{{ recipeProp.category }}</p>
         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Launch demo modal
@@ -95,7 +95,7 @@ export default {
 <style lang="scss" scoped>
 .recipe-card {
     width: 22rem;
-    border: 2px solid black;
+    border: 2px solid #7F8C8D;
     padding: 5px;
     border-radius: 7px;
     /* From https://css.glass */
@@ -104,7 +104,7 @@ export default {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(3.6px);
     -webkit-backdrop-filter: blur(3.6px);
-    border: 1px solid rgba(30, 23, 23, 0.78);
+    border: 1px solid #7F8C8D(30, 23, 23, 0.78);
 }
 
 img {
@@ -114,5 +114,11 @@ img {
     object-fit: cover;
     position: center;
     ;
+}
+
+.recipe-name {
+    font-family: 'Pinyon Script', cursive;
+    color: #7F8C8D;
+    text-shadow: 2px 1px 2px rgb(87, 82, 82);
 }
 </style>

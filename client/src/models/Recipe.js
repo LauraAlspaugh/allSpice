@@ -11,5 +11,6 @@ export class Recipe {
         this.img = data.img
         this.favorites = data.favorites
         this.isFavorite = data.isFavorite
+        this.favoriteCount = data.favoriteCount
     }
 }

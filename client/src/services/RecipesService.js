@@ -24,16 +24,21 @@ class RecipesService {
     }
     async favoriteRecipe(recipeId) {
         logger.log(`creating a favorite with ${recipeId}`)
-        const res = await api.post('api/favorites');
+        const res = await api.post('api/favorites', { recipeId });
         logger.log('this is what we are getting back from the favorite post', res.data)
-        AppState.myFavoriteRecipes.push(new Favorite(res.data));
+        AppState.favorites.push(new Favorite(res.data));
+        // const recipe = AppState.recipes.find(recipe => recipe.id == recipeId);
+        // recipe.favoriteCount++
     }
 
     async unfavoriteRecipe(favoriteId) {
         logger.log('trying to unfavorite this.')
         const res = await api.delete(`api/favorites/${favoriteId}}`);
-        AppState.myFavoriteRecipes = AppState.myFavoriteRecipes.filter(fav => fav.recipeId != recipeId);
+        AppState.favorites = AppState.myFavoriteRecipes.filter(fav => fav.recipeId != recipeId);
+        recipe.favoriteCount--
         return res.data
+
+
     }
     async createLike(recipeId) {
 

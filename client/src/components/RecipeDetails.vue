@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div v-if="recipe" class="col-3 p-4 recipe-details me-5">
-                <p class="fs-4 text-center">Instructions</p>
+                <p class="fs-4 text-center instruction-name">Instructions</p>
                 <p class="fs-5">{{ recipe.instructions }} <i @click="destroyInstructions(recipe.instructions)"
                         class="mdi mdi-close fs-4" type="button"></i> </p>
                 <form @submit.prevent="addInstructions()">
@@ -29,7 +29,7 @@
             </div>
 
             <div class="col-3 p-4 recipe-details">
-                <p class="fs-4 text-center">Ingredients</p>
+                <p class="fs-4 text-center instruction-name">Ingredients</p>
                 <p v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient-card">{{ ingredient.quantity
                 }} {{ ingredient.name }} <i @click="destroyIngredient(ingredient.id)" class="mdi mdi-close fs-4"
                         type="button"></i><i class="mdi mdi-pencil fs-4 btn" type="button" data-bs-toggle="modal"
@@ -74,11 +74,13 @@ import Pop from '../utils/Pop.js';
 import { recipesService } from '../services/RecipesService.js';
 import { useRoute } from 'vue-router';
 import EditModal from './EditModal.vue';
+import { accountService } from '../services/AccountService.js';
 export default {
     setup() {
         const route = useRoute();
         onMounted(() => {
             // getIngredientsByRecipeId()
+            getFavorites()
         });
         const editable = ref({});
         const editable2 = ref({});
@@ -90,6 +92,15 @@ export default {
             catch (error) {
                 logger.error(error);
                 Pop.error(error);
+            }
+        };
+        async function getFavorites() {
+            try {
+                await accountService.getFavorites()
+            } catch (error) {
+                logger.error(error)
+                Pop.error(error)
+
             }
         }
         return {
@@ -164,6 +175,8 @@ img {
     object-fit: cover;
     width: 100%;
     height: 100%px;
+    border: solid #7F8C8D 3px;
+    border-radius: 5px;
 }
 
 .recipe-details {
@@ -179,5 +192,11 @@ img {
 .recipe-name {
     color: #7F8C8D;
     font-family: 'Pinyon Script', cursive;
+}
+
+.instruction-name {
+    border-bottom: solid #7F8C8D 3px;
+
+    width: 100%;
 }
 </style>
