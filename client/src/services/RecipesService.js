@@ -1,4 +1,5 @@
 import { AppState } from "../AppState.js"
+import { Favorite } from "../models/Favorite.js"
 import { Recipe } from "../models/Recipe.js"
 import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
@@ -23,14 +24,14 @@ class RecipesService {
     }
     async favoriteRecipe(recipeId) {
         logger.log(`creating a favorite with ${recipeId}`)
-        const res = await api.post(`api/favorites`, { recipeId });
+        const res = await api.post('api/favorites');
         logger.log('this is what we are getting back from the favorite post', res.data)
-        AppState.myFavoriteRecipes.push(new Recipe(res.data));
+        AppState.myFavoriteRecipes.push(new Favorite(res.data));
     }
 
-    async unfavoriteRecipe(recipeId) {
+    async unfavoriteRecipe(favoriteId) {
         logger.log('trying to unfavorite this.')
-        const res = await api.delete(`api/favorites/recipes/${recipeId}`);
+        const res = await api.delete(`api/favorites/${favoriteId}}`);
         AppState.myFavoriteRecipes = AppState.myFavoriteRecipes.filter(fav => fav.recipeId != recipeId);
         return res.data
     }
@@ -63,11 +64,11 @@ class RecipesService {
         AppState.recipes.splice(recipeIndex, 1)
     }
     async destroyInstructions(recipeData, recipeId) {
-        const res = await api.delete(`api/recipes/${recipeId}`, recipeData)
+        const res = await api.put(`api/recipes/${recipeId}`, recipeData)
         logger.log('destroying instructions', res.data)
-        const instructionsIndex = AppState.recipes.findIndex(recipe => recipe.id == recipeId)
-        if (instructionsIndex == -1) { throw new Error('No ingredient found with this id') }
-        AppState.recipes.splice(instructionsIndex, 1)
+        const recipeIndex = AppState.recipes.findIndex(recipe => recipe.id == recipeId)
+        if (recipeIndex == -1) { throw new Error('No ingredient found with this id') }
+        AppState.recipes.splice(recipeIndex, 1)
     }
 
 }

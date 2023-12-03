@@ -144,7 +144,7 @@ export default {
                     }
                     const instructionData = editable2.value;
                     instructionData.recipeId = AppState.activeRecipe.id;
-                    await recipesService.addInstructions(recipeInstructions);
+                    await recipesService.destroyInstructions(instructionData, instructionData.recipeId);
                 }
                 catch (error) {
                     logger.error(error);
