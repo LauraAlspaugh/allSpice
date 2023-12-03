@@ -9,5 +9,7 @@ export class Recipe {
         this.creator = data.creator
         this.creatorId = data.creatorId
         this.img = data.img
+        this.favorites = data.favorites
+        this.isFavorite = data.isFavorite
     }
 }

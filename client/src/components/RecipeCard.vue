@@ -49,14 +49,25 @@ export default {
             async favoriteRecipe() {
                 try {
                     const recipeId = props.recipeProp.id;
+                    logger.log('favorite  recipe with recipe id', recipeId)
                     await recipesService.favoriteRecipe(recipeId);
                 }
                 catch (error) { Pop.error(error) }
             },
+            // async createLike(recipePropId) {
+            //     try {
+            //         await recipesService.createLike(recipePropId)
+            //     } catch (error) {
+            //         logger.error(error)
+            //         Pop.error(error)
+
+            //     }
+            // },
 
             async unfavoriteRecipe() {
                 try {
                     const recipeId = props.recipeProp.id;
+                    logger.log('we are trying to unfavorite this recipe', recipeId)
                     await recipesService.unfavoriteRecipe(recipeId);
                 }
                 catch (error) { Pop.error(error) }

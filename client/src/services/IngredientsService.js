@@ -18,6 +18,7 @@ class IngredientsService {
         return newIngredient
     }
     async destroyIngredient(ingredientId) {
+        logger.log('deleting inged wiht following id', ingredientId)
         const res = await api.delete(`api/ingredients/${ingredientId}`)
         logger.log('destroying ingredient', res.data)
         const ingredientIndex = AppState.ingredients.findIndex(ingredient => ingredient.id == ingredientId)

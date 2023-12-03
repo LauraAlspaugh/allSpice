@@ -22,15 +22,29 @@ class RecipesService {
         return newRecipe
     }
     async favoriteRecipe(recipeId) {
+        logger.log(`creating a favorite with ${recipeId}`)
         const res = await api.post(`api/favorites`, { recipeId });
+        logger.log('this is what we are getting back from the favorite post', res.data)
         AppState.myFavoriteRecipes.push(new Recipe(res.data));
     }
 
     async unfavoriteRecipe(recipeId) {
-        const res = await api.delete(`api/favorites${recipeId}`);
+        logger.log('trying to unfavorite this.')
+        const res = await api.delete(`api/favorites/recipes/${recipeId}`);
         AppState.myFavoriteRecipes = AppState.myFavoriteRecipes.filter(fav => fav.recipeId != recipeId);
         return res.data
     }
+    async createLike(recipeId) {
+
+        const res = await api.post(`api/favorites`)
+        logger.log(res.data)
+        const recipeIndex = AppState.recipes.findIndex(recipes => recipes.id == recipeId)
+        if (recipeIndex == -1) { return }
+        const newRecipe = new Recipe(res.data)
+        AppState.recipes.splice(recipeIndex, 1, newRecipe)
+
+    }
+
     async addInstructions(recipeData, recipeId) {
         const res = await api.put(`api/recipes/${recipeId}`, recipeData)
         logger.log('adding instructions', res.data)
@@ -48,8 +62,8 @@ class RecipesService {
         if (recipeIndex == -1) { throw new Error('No recipe found with this id') }
         AppState.recipes.splice(recipeIndex, 1)
     }
-    async destroyInstructions(instructionsId) {
-        const res = await api.delete(`api/recipes/${instructionsId}`)
+    async destroyInstructions(recipeData, recipeId) {
+        const res = await api.delete(`api/recipes/${recipeId}`, recipeData)
         logger.log('destroying instructions', res.data)
         const instructionsIndex = AppState.recipes.findIndex(recipe => recipe.id == recipeId)
         if (instructionsIndex == -1) { throw new Error('No ingredient found with this id') }

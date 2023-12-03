@@ -5,5 +5,7 @@ export class Favorite {
         this.recipeId = data.recipeId
         this.creator = data.creator
         this.creatorId = data.creatorId
+        this.recipe = data.recipe
+        this.isFavorite = data.isFavorite
     }
 }
