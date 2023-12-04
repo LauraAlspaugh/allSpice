@@ -4,7 +4,7 @@
             <div class="col-4 "> -->
         <img @click="setActiveRecipe(recipeProp)" type="button" data-bs-toggle="modal" data-bs-target="#recipeModal"
             class="img-fluid" :src="recipeProp.img" alt="recipe image">
-        <span v-if="!myFavoriteRecipes" @click.stop="unfavoriteRecipe()" role="button"><i
+        <span v-if="isFavRecipe" @click.stop="unfavoriteRecipe(isFavRecipe.id)" role="button"><i
                 class="fs-2 mdi mdi-heart text-center"></i></span>
         <span v-else @click.stop="favoriteRecipe(recipeProp.id)" role="button"><i
                 class="fs-2 mdi mdi-heart-outline text-center"></i></span>
@@ -38,7 +38,7 @@ export default {
         // const route = useRoute();
         return {
             myFavoriteRecipes: computed(() => AppState.myFavoriteRecipes),
-            isFavRecipe: computed(() => AppState.myFavoriteRecipes.find((recipe) => recipe.recipeId == props.recipeProp.id)),
+            isFavRecipe: computed(() => AppState.myFavoriteRecipes.find((recipe) => recipe.id == props.recipeProp.id || recipe.recipeId == props.recipeProp.id)),
             recipes: computed(() => AppState.recipes),
             ingredients: computed(() => AppState.ingredients),
             setActiveRecipe(recipeProp) {
@@ -64,11 +64,12 @@ export default {
             //     }
             // },
 
-            async unfavoriteRecipe() {
+            async unfavoriteRecipe(favoriteId) {
                 try {
+                    debugger
                     const recipeId = props.recipeProp.id;
                     logger.log('we are trying to unfavorite this recipe', recipeId)
-                    await recipesService.unfavoriteRecipe(recipeId);
+                    await recipesService.unfavoriteRecipe(favoriteId);
                 }
                 catch (error) { Pop.error(error) }
             },

@@ -21,6 +21,7 @@ class AccountService {
 
   async getFavorites() {
     const res = await api.get("/account/favorites")
+    debugger
     logger.log('getting favorites', res.data)
     AppState.myFavoriteRecipes = res.data.map((favorite) => new Favorite(favorite))
   }

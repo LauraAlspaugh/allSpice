@@ -17,7 +17,8 @@ public class FavoritesRepository
     INSERT INTO 
     favorites(recipeId, accountId)
     VALUES(@recipeId, @accountId);
-       SELECT * FROM favorites WHERE id = LAST_INSERT_ID();
+
+    SELECT * FROM favorites WHERE id = LAST_INSERT_ID();
     ";
         Favorite favorite = _db.Query<Favorite>(sql, favoriteData).FirstOrDefault();
         return favorite;
@@ -53,6 +54,7 @@ public class FavoritesRepository
             recipeFavorite.FavoriteId = favorite.Id;
             recipeFavorite.AccountId = favorite.AccountId;
             recipeFavorite.Creator = account;
+
             return recipeFavorite;
 
         }, new { userId }).ToList();

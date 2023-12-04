@@ -32,24 +32,26 @@
                 <p class="fs-4 text-center instruction-name">Ingredients</p>
                 <p v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient-card">{{ ingredient.quantity
                 }} {{ ingredient.name }} <i @click="destroyIngredient(ingredient.id)" class="mdi mdi-close fs-4"
-                        type="button"></i><i class="mdi mdi-pencil fs-4 btn" type="button" data-bs-toggle="modal"
-                        data-bs-target="#editModal"></i>
+                        type="button"></i>
+                    <i class="mdi mdi-pencil fs-4 btn" type="button" @click="enableEdit(ingredient)"></i>
                 </p>
 
 
 
 
 
-                <form @submit.prevent="addIngredient()">
+                <form @submit.prevent="routeSubmit()">
                     <div class="mb-3">
                         <label for="quantity" class="form-label"></label>
                         <input v-model="editable.quantity" type="text" class="form-control" id="quantity"
                             placeholder="Amount" aria-describedby="emailHelp">
+
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label"></label>
                         <input v-model="editable.name" type="text" class="form-control" id="name" placeholder="Name"
                             aria-describedby="emailHelp">
+
                     </div>
 
                     <button type="submit" class="btn btn-outline-dark">Submit</button>
@@ -80,7 +82,7 @@ export default {
         const route = useRoute();
         onMounted(() => {
             // getIngredientsByRecipeId()
-            getFavorites()
+            // getFavorites()
         });
         const editable = ref({});
         const editable2 = ref({});
@@ -133,6 +135,25 @@ export default {
                     logger.error(error);
                     Pop.error(error);
                 }
+            },
+            async editIngredient() {
+                try {
+                    const ingredientData = editable.value;
+                    await ingredientsService.editIngredient(ingredientData);
+                    editable.value = {};
+                }
+                catch (error) {
+                    logger.error(error);
+                    Pop.error(error);
+                }
+            },
+            enableEdit(ingredient) {
+                editable.value = ingredient
+            },
+            routeSubmit() {
+                if (editable.value.id) {
+                    this.editIngredient()
+                } else this.addIngredient()
             },
             async destroyIngredient(ingredientId) {
                 try {

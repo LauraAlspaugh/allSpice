@@ -15,7 +15,15 @@ class IngredientsService {
         logger.log('adding ingredient!', res.data)
         const newIngredient = new Ingredient(res.data)
         AppState.ingredients.push(newIngredient)
-        return newIngredient
+        // return newIngredient
+    }
+    async editIngredient(ingredientData) {
+        const res = await api.put('api/ingredients/' + ingredientData.id, ingredientData)
+        logger.log('adding ingredient!', res.data)
+        const ingredientIndex = AppState.ingredients.findIndex(ingredient => ingredient.id == ingredientData.id)
+        if (ingredientIndex == -1) { throw new Error('No ingredient found with this id') }
+        AppState.ingredients.splice(ingredientIndex, 1, ingredientData)
+
     }
     async destroyIngredient(ingredientId) {
         logger.log('deleting inged wiht following id', ingredientId)
