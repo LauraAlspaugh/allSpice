@@ -2,6 +2,7 @@
 
 
 
+
 namespace allSpice.Repositories;
 public class IngredientsRepository
 {
@@ -37,6 +38,30 @@ public class IngredientsRepository
     {
         string sql = "DELETE FROM ingredients WHERE id = @ingredientId LIMIT 1;";
         _db.Execute(sql, new { ingredientId });
+    }
+
+    internal Ingredient EditIngredient(Ingredient ingredient)
+    {
+        string sql = @"
+    UPDATE ingredients 
+    SET 
+    
+name = @Name,
+quantity = @Quantity
+WHERE id = @Id;
+
+SELECT ing.*,
+    acc.*
+    FROM ingredients ing
+    JOIN accounts acc ON ing.creatorId = acc.id
+    Where ing.id = @Id;
+    ";
+        Ingredient newIngredient = _db.Query<Ingredient, Account, Ingredient>(sql, (ingredient, account) =>
+    {
+        ingredient.Creator = account;
+        return ingredient;
+    }, ingredient).FirstOrDefault();
+        return newIngredient;
     }
 
     internal Ingredient GetIngredientById(int ingredientId)

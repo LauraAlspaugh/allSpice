@@ -40,4 +40,17 @@ public class IngredientsService
         List<Ingredient> ingredients = _ingredientsRepository.GetIngredientsByRecipeId(recipeId);
         return ingredients;
     }
+
+    internal Ingredient EditIngredient(int ingredientId, Ingredient ingredientData, string userId)
+    {
+        Ingredient ingredient = GetIngredientById(ingredientId);
+        if (ingredient.CreatorId != userId)
+        {
+            throw new Exception("not your ingredient  to edit!");
+        }
+        ingredient.Name = ingredientData.Name ?? ingredient.Name;
+        ingredient.Quantity = ingredientData.Quantity ?? ingredient.Quantity;
+        _ingredientsRepository.EditIngredient(ingredient);
+        return ingredient;
+    }
 }
