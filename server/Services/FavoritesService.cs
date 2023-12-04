@@ -12,9 +12,9 @@ public class FavoritesService
         _auth0Provider = auth0Provider;
     }
 
-    internal Favorite CreateFavorite(Favorite favoriteData)
+    internal RecipeFavorite CreateFavorite(Favorite favoriteData)
     {
-        Favorite favorite = _favoritesRepository.CreateFavorite(favoriteData);
+        RecipeFavorite favorite = _favoritesRepository.CreateFavorite(favoriteData);
         return favorite;
     }
     internal Favorite GetFavoriteById(int favoriteId)

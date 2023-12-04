@@ -11,17 +11,32 @@ public class FavoritesRepository
         _db = db;
     }
 
-    internal Favorite CreateFavorite(Favorite favoriteData)
+    internal RecipeFavorite CreateFavorite(Favorite favoriteData)
     {
         string sql = @"
     INSERT INTO 
     favorites(recipeId, accountId)
     VALUES(@recipeId, @accountId);
 
-    SELECT * FROM favorites WHERE id = LAST_INSERT_ID();
+    SELECT
+    fav.*,
+    rec.*,
+    acc.*
+    FROM favorites fav
+    JOIN recipes rec ON fav.recipeId = rec.id
+    JOIN accounts acc ON acc.id = rec.creatorId
+    WHERE fav.id = LAST_INSERT_ID();
     ";
-        Favorite favorite = _db.Query<Favorite>(sql, favoriteData).FirstOrDefault();
-        return favorite;
+        RecipeFavorite recipeFavorites = _db.Query<Favorite, RecipeFavorite, Account, RecipeFavorite>(sql, (favorite, recipeFavorite, account) =>
+        {
+            recipeFavorite.FavoriteId = favorite.Id;
+            recipeFavorite.AccountId = favorite.AccountId;
+            recipeFavorite.Creator = account;
+
+            return recipeFavorite;
+
+        }, favoriteData).FirstOrDefault();
+        return recipeFavorites;
     }
 
     internal void DestroyFavorite(int favoriteId)
