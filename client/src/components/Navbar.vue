@@ -18,6 +18,12 @@
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
+      <div class="search-container">
+        <form action="/action_page.php">
+          <input type="text" placeholder="Search.." name="search">
+          <button type="submit"><i class="mdi mdi-magnify "></i></button>
+        </form>
+      </div>
       <div>
         <button class="btn text-light" @click="toggleTheme"><i class="mdi"
             :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i></button>

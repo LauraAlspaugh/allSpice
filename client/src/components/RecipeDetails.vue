@@ -25,10 +25,23 @@
 
                     <button type="submit" class="btn btn-outline-dark">Submit</button>
                 </form>
+                <div class=" absolute">
+                    <span><i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
 
+                    </span>
+
+                </div>
             </div>
 
-            <div class="col-12 col-md-3 p-4 recipe-details">
+            <div class="col-12 mb-2 col-md-3 p-4 recipe-details">
                 <p class="fs-4 text-center instruction-name">Ingredients</p>
                 <p v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient-card">{{ ingredient.quantity
                 }} {{ ingredient.name }} <i @click="destroyIngredient(ingredient.id)" class="mdi mdi-close fs-4"
@@ -56,6 +69,20 @@
 
                     <button type="submit" class="btn btn-outline-dark">Submit</button>
                 </form>
+                <div class=" absolute">
+                    <span><i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+                        <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
+
+                    </span>
+
+                </div>
             </div>
 
 
@@ -219,5 +246,16 @@ img {
     border-bottom: solid #7F8C8D 3px;
 
     width: 100%;
+}
+
+.chevron-icon {
+    color: #7F8C8D;
+}
+
+.absolute {
+    position: absolute;
+    width: 50%;
+    bottom: 2px;
+
 }
 </style>

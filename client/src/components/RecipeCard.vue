@@ -11,6 +11,15 @@
         <i class="mdi mdi-close fs-2" type="button" @click="destroyRecipe()"></i>
         <p class="fs-3 text-center recipe-name">{{ recipeProp.title }}</p>
         <p class="text-center ">{{ recipeProp.category }}</p>
+        <div class="text-center">
+            <span class="text-center">
+                <i class="mdi mdi-star fs-4 star-icon"></i>
+                <i class="mdi mdi-star fs-4 star-icon"></i>
+                <i class="mdi mdi-star fs-4 star-icon"></i>
+                <i class="mdi mdi-star fs-4 star-icon"></i>
+                <i class="mdi mdi-star-half fs-4 star-icon"></i>
+            </span>
+        </div>
         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Launch demo modal
         </button> -->
@@ -121,5 +130,9 @@ img {
     font-family: 'Pinyon Script', cursive;
     color: #7F8C8D;
     text-shadow: 2px 1px 2px rgb(87, 82, 82);
+}
+
+.star-icon {
+    color: #7F8C8D;
 }
 </style>

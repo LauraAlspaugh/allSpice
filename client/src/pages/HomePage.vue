@@ -12,8 +12,8 @@
     </section>
     <section class="row">
       <div class="col-12 mt-3 p-3 d-flex rounded-pill justify-content-around">
-        <button class="btn btn-outline-dark w-100 mx-3" v-for="filter in filters" :key="filter"
-          @click="filterRecipes(filter)">{{ filter
+        <button class="btn btn-outline-dark w-100 mx-3" @click="filterRecipes(filter)" v-for="filter in filters"
+          :key="filter">{{ filter
           }}</button>
 
       </div>
