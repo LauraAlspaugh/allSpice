@@ -10,8 +10,17 @@
       </div>
 
     </section>
+    <section class="row">
+      <div class="col-12 mt-3 p-3 d-flex rounded-pill justify-content-around">
+        <button class="btn btn-outline-dark w-100 mx-3" v-for="filter in filters" :key="filter"
+          @click="filterRecipes(filter)">{{ filter
+          }}</button>
+
+      </div>
+    </section>
     <div class="section-row ">
-      <div class=" md-12 col-md-12 mt-3">
+      <div class=" md-12 col-md-12 mt-3" v-if="!isMobile">
+
         <div class="d-flex rounded-pill justify-content-around">
           <button class="btn btn-outline-dark w-100 mx-3" @click="changeCategory('')">All</button>
           <button class="btn btn-outline-dark  w-100 mx-3" @click="changeCategory(category)"
@@ -20,9 +29,17 @@
           </button>
         </div>
       </div>
+      <div class="dropdown" v-else>
+        <button class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false"> Dropdown</button>
+        <ul class="dropdown-menu">
+          <li @click="changeCategory('')" class="dropdown-item">All</li>
+          <li @click="changeCategory(category)" v-for="category in categories" :key="category" class="dropdown-item">
+            {{ category }}</li>
+        </ul>
+      </div>
     </div>
     <section class="row">
-      <div v-for="recipe in recipes" :key="recipe.id" class="col-4 p-4 d-flex justify-content-center ">
+      <div v-for="recipe in recipes" :key="recipe.id" class="col-12 col-md-4 p-4 d-flex justify-content-center ">
         <RecipeCard :recipeProp="recipe" />
       </div>
     </section>
@@ -38,12 +55,14 @@ import Pop from '../utils/Pop.js';
 import { AppState } from '../AppState.js';
 import RecipeCard from '../components/RecipeCard.vue';
 import NewRecipeModal from '../components/NewRecipeModal.vue';
-import { accountService } from '../services/AccountService.js';
+// import { accountService } from '../services/AccountService.js';
 
 export default {
   setup() {
     const categories = ["Mexican", "Soup", "Italian", "Specialty Coffee", "Cheese"];
+    const filters = ["Home", "Favorites", "Created"];
     const filteredCategory = ref("");
+    const filtersCategory = ref("");
     onMounted(() => {
       getRecipes();
       // getFavorites()
@@ -68,7 +87,16 @@ export default {
     // }
     return {
       categories,
+      filters,
       filteredCategory,
+      filtersCategory,
+      isMobile: computed(() => {
+        let isMobile = false
+        if (window.innerWidth < 768) {
+          isMobile = true
+        }
+        return isMobile
+      }),
       recipes: computed(() => AppState.recipes),
       recipes: computed(() => {
         if (filteredCategory.value) {
@@ -78,6 +106,18 @@ export default {
           return AppState.recipes
         }
       }),
+      filteredRecipes: computed(() => {
+        if (filtersCategory.value) {
+          return AppState.recipes.filter((recipe) => recipe.filter == filtersCategory.value);
+        } else {
+          return AppState.recipes
+        }
+      }),
+      filterRecipes(filter) {
+        logger.log(filter)
+        filtersCategory.value = filter
+        recipesService.filterRecipes(filter)
+      },
       changeCategory(category) {
         logger.log(category)
         filteredCategory.value = category

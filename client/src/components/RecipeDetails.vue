@@ -7,12 +7,12 @@
             </div>
         </section>
         <section class="row">
-            <div class="col-4 me-5">
+            <div class="col-12 mb-2 col-md-4 me-5">
                 <div v-if="recipe">
                     <img :src="recipe.img" alt="recipe image">
                 </div>
             </div>
-            <div v-if="recipe" class="col-3 p-4 recipe-details me-5">
+            <div v-if="recipe" class="col-12 mb-2 col-md-3 p-4 recipe-details me-5">
                 <p class="fs-4 text-center instruction-name">Instructions</p>
                 <p class="fs-5">{{ recipe.instructions }} <i @click="destroyInstructions(recipe.instructions)"
                         class="mdi mdi-close fs-4" type="button"></i> </p>
@@ -28,7 +28,7 @@
 
             </div>
 
-            <div class="col-3 p-4 recipe-details">
+            <div class="col-12 col-md-3 p-4 recipe-details">
                 <p class="fs-4 text-center instruction-name">Ingredients</p>
                 <p v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient-card">{{ ingredient.quantity
                 }} {{ ingredient.name }} <i @click="destroyIngredient(ingredient.id)" class="mdi mdi-close fs-4"

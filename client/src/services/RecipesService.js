@@ -1,3 +1,4 @@
+
 import { AppState } from "../AppState.js"
 import { Favorite } from "../models/Favorite.js"
 import { Recipe } from "../models/Recipe.js"
@@ -76,7 +77,19 @@ class RecipesService {
         if (recipeIndex == -1) { throw new Error('No ingredient found with this id') }
         AppState.recipes.splice(recipeIndex, 1)
     }
+    filterRecipes(filter) {
+        if (filter = "Home") {
+            return AppState.recipes = AppState.recipes
 
+        } logger.log('logging one')
+        if (filter = "Created") {
+            return AppState.recipes = AppState.recipes.filter((recipe) => recipe.creatorId == recipe.accountId)
+        } logger.log('logging two ')
+        if (filter = "Favorites") {
+            return AppState.filteredRecipes = AppState.recipes.filter((recipe) => recipe.favoriteId == recipe.id)
+        }
+
+    }
 }
 export const recipesService = new RecipesService()
 
