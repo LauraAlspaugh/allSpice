@@ -12,5 +12,6 @@ export class Recipe {
         this.favorites = data.favorites
         this.isFavorite = data.isFavorite
         this.favoriteCount = data.favoriteCount
+
     }
 }

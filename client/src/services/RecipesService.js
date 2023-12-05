@@ -93,9 +93,11 @@ class RecipesService {
         if (filter == "Home") {
             AppState.filteredRecipes = AppState.recipes
         } logger.log('filter two ')
+
         if (filter == "Created") {
             AppState.filteredRecipes = AppState.recipes.filter(recipe => recipe.creatorId == AppState.account.id)
         } logger.log('filter three ')
+
         if (filter == "Favorites") {
             const filteredRecipes = []
             const recipes = AppState.recipes
