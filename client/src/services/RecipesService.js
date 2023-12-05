@@ -1,5 +1,6 @@
 
 import { AppState } from "../AppState.js"
+import { Account } from "../models/Account.js"
 import { Favorite } from "../models/Favorite.js"
 import { Recipe } from "../models/Recipe.js"
 import { logger } from "../utils/Logger.js"
@@ -10,6 +11,7 @@ class RecipesService {
         const res = await api.get('api/recipes')
         logger.log('getting recipes!', res.data)
         AppState.recipes = res.data.map(pojo => new Recipe(pojo))
+        AppState.filteredRecipes = res.data.map(recipe => new Recipe(recipe))
 
     }
     setActiveRecipe(recipeProp) {
@@ -19,8 +21,17 @@ class RecipesService {
     async createRecipe(recipeData) {
         const res = await api.post('api/recipes', recipeData)
         logger.log('created a recipe!', res.data)
+        if (AppState.filter === 'Favorites') {
+            AppState.recipes.push(new Recipe(res.data))
+            return
+        }
+        if (AppState.filter === 'Home') {
+            AppState.recipes.push(new Recipe(res.data))
+            return
+        }
         const newRecipe = new Recipe(res.data)
         AppState.recipes.push(newRecipe)
+        AppState.filteredRecipes.push(new Recipe(res.data))
         return newRecipe
     }
     async favoriteRecipe(recipeId) {
@@ -78,19 +89,27 @@ class RecipesService {
         AppState.recipes.splice(recipeIndex, 1)
     }
     filterRecipes(filter) {
-        if (filter = "Home") {
-            return AppState.recipes = AppState.recipes
 
-        } logger.log('logging one')
-        if (filter = "Created") {
-            return AppState.recipes = AppState.recipes.filter((recipe) => recipe.creatorId == recipe.accountId)
-        } logger.log('logging two ')
-        if (filter = "Favorites") {
-            return AppState.filteredRecipes = AppState.recipes.filter((recipe) => recipe.favoriteId == recipe.id)
-        }
+        if (filter == "Home") {
+            AppState.filteredRecipes = AppState.recipes
+        } logger.log('filter two ')
+        if (filter == "Created") {
+            AppState.filteredRecipes = AppState.recipes.filter(recipe => recipe.creatorId == AppState.account.id)
+        } logger.log('filter three ')
+        if (filter == "Favorites") {
+            const filteredRecipes = []
+            const recipes = AppState.recipes
+            for (let i = 0; i < AppState.favorites.length; i++) {
+                let favorite = recipes.find(recipe => recipe.id == AppState.favorites[i].id)
+                filteredRecipes.push(favorite)
+            }
+            AppState.filteredRecipes = filteredRecipes
+
+        } logger.log('filter four')
+        AppState.filter = filter
 
     }
 }
 export const recipesService = new RecipesService()
 
-// (recipeIndex, 0, newRecipe)
+

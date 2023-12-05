@@ -60,9 +60,9 @@ import NewRecipeModal from '../components/NewRecipeModal.vue';
 export default {
   setup() {
     const categories = ["Mexican", "Soup", "Italian", "Specialty Coffee", "Cheese"];
-    const filters = ["Home", "Favorites", "Created"];
+    const filters = ["Home", "Created", "Favorites"];
     const filteredCategory = ref("");
-    const filtersCategory = ref("");
+    // const filtersCategory = ref("");
     onMounted(() => {
       getRecipes();
       // getFavorites()
@@ -89,7 +89,7 @@ export default {
       categories,
       filters,
       filteredCategory,
-      filtersCategory,
+
       isMobile: computed(() => {
         let isMobile = false
         if (window.innerWidth < 768) {
@@ -97,7 +97,7 @@ export default {
         }
         return isMobile
       }),
-      recipes: computed(() => AppState.recipes),
+      recipes: computed(() => AppState.filteredRecipes),
       recipes: computed(() => {
         if (filteredCategory.value) {
           return AppState.recipes.filter((recipe) => recipe.category == filteredCategory.value);
@@ -106,16 +106,14 @@ export default {
           return AppState.recipes
         }
       }),
-      filteredRecipes: computed(() => {
-        if (filtersCategory.value) {
-          return AppState.recipes.filter((recipe) => recipe.filter == filtersCategory.value);
-        } else {
-          return AppState.recipes
-        }
-      }),
+      // filteredRecipes: computed(() => {
+      //   if (filtersCategory.value) {
+      //     return AppState.recipes.filter((recipe) => recipe.filter == filtersCategory.value);
+      //   } else {
+      //     return AppState.recipes
+      //   }
+      // }),
       filterRecipes(filter) {
-        logger.log(filter)
-        filtersCategory.value = filter
         recipesService.filterRecipes(filter)
       },
       changeCategory(category) {
