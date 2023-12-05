@@ -18,10 +18,19 @@
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
-      <div class="search-container">
+      <!-- <div class="search-container">
         <form action="/action_page.php">
           <input type="text" placeholder="Search.." name="search">
           <button type="submit"><i class="mdi mdi-magnify "></i></button>
+        </form>
+      </div> -->
+      <div>
+        <form class="d-flex" @submit.prevent="getRecipesWithSearchQuery(editable)">
+
+          <!-- <label for="recipeTitle" class="form-label"></label> -->
+          <input v-model="editable" type="text" class="form-control" id="recipeTitle">
+          <button type="submit"> <i class="mdi mdi-magnify"></i></button>
+
         </form>
       </div>
       <div>
@@ -34,11 +43,16 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
+import { logger } from '../utils/Logger.js';
+import Pop from '../utils/Pop.js';
+import { AppState } from '../AppState.js';
+import { recipesService } from '../services/RecipesService.js';
 export default {
   setup() {
+    const editable = ref('');
 
     const theme = ref(loadState('theme') || 'light')
 
@@ -47,12 +61,18 @@ export default {
     })
 
     return {
+      editable,
+      recipes: computed(() => AppState.recipes),
       theme,
       toggleTheme() {
         theme.value = theme.value == 'light' ? 'dark' : 'light'
         document.documentElement.setAttribute('data-bs-theme', theme.value)
         saveState('theme', theme.value)
-      }
+      },
+      getRecipesWithSearchQuery(editable) {
+        logger.log(editable)
+        recipesService.getRecipesWithSearchQuery(editable)
+      },
     }
   },
   components: { Login }

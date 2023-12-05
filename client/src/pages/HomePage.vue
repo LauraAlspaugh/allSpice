@@ -18,7 +18,7 @@
 
       </div>
     </section>
-    <div class="section-row ">
+    <!-- <div class="section-row ">
       <div class=" md-12 col-md-12 mt-3" v-if="!isMobile">
 
         <div class="d-flex rounded-pill justify-content-around">
@@ -37,7 +37,7 @@
             {{ category }}</li>
         </ul>
       </div>
-    </div>
+    </div> -->
     <section class="row">
       <div v-for="recipe in recipes" :key="recipe.id" class="col-12 col-md-4 p-4 d-flex justify-content-center ">
         <RecipeCard :recipeProp="recipe" />
@@ -98,14 +98,14 @@ export default {
         return isMobile
       }),
       recipes: computed(() => AppState.filteredRecipes),
-      recipes: computed(() => {
-        if (filteredCategory.value) {
-          return AppState.recipes.filter((recipe) => recipe.category == filteredCategory.value);
+      // recipes: computed(() => {
+      //   if (filteredCategory.value) {
+      //     return AppState.recipes.filter((recipe) => recipe.category == filteredCategory.value);
 
-        } else {
-          return AppState.recipes
-        }
-      }),
+      //   } else {
+      //     return AppState.recipes
+      //   }
+      // }),
       // filteredRecipes: computed(() => {
       //   if (filtersCategory.value) {
       //     return AppState.recipes.filter((recipe) => recipe.filter == filtersCategory.value);

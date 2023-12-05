@@ -23,6 +23,8 @@
         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Launch demo modal
         </button> -->
+
+
     </div>
 
     <!-- </section>
@@ -45,6 +47,7 @@ export default {
     props: { recipeProp: { type: Recipe, required: true } },
     setup(props) {
         // const route = useRoute();
+
         return {
             myFavoriteRecipes: computed(() => AppState.myFavoriteRecipes),
             isFavRecipe: computed(() => AppState.myFavoriteRecipes.find((recipe) => recipe.id == props.recipeProp.id || recipe.recipeId == props.recipeProp.id)),
@@ -73,6 +76,14 @@ export default {
             //     }
             // },
 
+            async remove() {
+                let i = 0;
+                while (i < 5) {
+                    stars[i].id = "star";
+                    i++;
+                }
+            },
+
             async unfavoriteRecipe(favoriteId) {
                 try {
 
@@ -94,6 +105,7 @@ export default {
 
                 }
             }
+
 
         };
     },
@@ -134,5 +146,29 @@ img {
 
 .star-icon {
     color: #7F8C8D;
+}
+
+.star {
+    font-size: 2vh;
+}
+
+.one {
+    color: rgb(255, 0, 0);
+}
+
+.two {
+    color: rgb(255, 106, 0);
+}
+
+.three {
+    color: rgb(251, 255, 120);
+}
+
+.four {
+    color: rgb(255, 255, 0);
+}
+
+.five {
+    color: rgb(24, 159, 14);
 }
 </style>

@@ -101,8 +101,8 @@ class RecipesService {
         if (filter == "Favorites") {
             const filteredRecipes = []
             const recipes = AppState.recipes
-            for (let i = 0; i < AppState.favorites.length; i++) {
-                let favorite = recipes.find(recipe => recipe.id == AppState.favorites[i].id)
+            for (let i = 0; i < AppState.myFavoriteRecipes.length; i++) {
+                let favorite = recipes.find(recipe => recipe.id == AppState.myFavoriteRecipes[i].id)
                 filteredRecipes.push(favorite)
             }
             AppState.filteredRecipes = filteredRecipes
@@ -110,6 +110,12 @@ class RecipesService {
         } logger.log('filter four')
         AppState.filter = filter
 
+    }
+    getRecipesWithSearchQuery(editable) {
+        if (editable == '') {
+            AppState.filteredRecipes = AppState.recipes
+            return
+        } AppState.filteredRecipes = AppState.recipes.filter((recipe) => recipe.category.toLowerCase().includes(editable.toLowerCase()))
     }
 }
 export const recipesService = new RecipesService()
