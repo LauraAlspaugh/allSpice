@@ -59,7 +59,7 @@ import NewRecipeModal from '../components/NewRecipeModal.vue';
 
 export default {
   setup() {
-    const categories = ["Mexican", "Soup", "Italian", "Specialty Coffee", "Cheese"];
+    const categories = ["Mexican", "Soup", "Italian", "Specialty Coffee", "Dessert"];
     const filters = ["Home", "Created", "Favorites"];
     const filteredCategory = ref("");
     // const filtersCategory = ref("");
