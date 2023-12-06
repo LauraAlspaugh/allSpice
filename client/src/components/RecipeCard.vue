@@ -12,12 +12,13 @@
         <p class="fs-3 text-center recipe-name">{{ recipeProp.title }}</p>
         <p class="text-center ">{{ recipeProp.category }}</p>
         <div class="text-center">
-            <span class="text-center">
-                <i class="mdi mdi-star fs-4 star-icon"></i>
-                <i class="mdi mdi-star fs-4 star-icon"></i>
-                <i class="mdi mdi-star fs-4 star-icon"></i>
-                <i class="mdi mdi-star fs-4 star-icon"></i>
-                <i class="mdi mdi-star-half fs-4 star-icon"></i>
+            <span class="justify-content-center d-flex">
+                <i v-for="star in [...Array(stars)].map((n, i) => i + 1)" @click="addStar(star)"
+                    class="mdi mdi-star fs-4 star-icon"></i>
+                <i v-for="star in [...Array(5 - stars)].map((n, i) => i + 1 + stars)" @click="addStar(star)"
+                    class="mdi mdi-star-outline fs-4 star-icon"></i>
+
+
             </span>
         </div>
         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -53,6 +54,9 @@ export default {
             isFavRecipe: computed(() => AppState.myFavoriteRecipes.find((recipe) => recipe.id == props.recipeProp.id || recipe.recipeId == props.recipeProp.id)),
             recipes: computed(() => AppState.recipes),
             ingredients: computed(() => AppState.ingredients),
+            stars: computed(() => {
+                return Math.floor(Math.random() * 5)
+            }),
             setActiveRecipe(recipeProp) {
                 recipesService.setActiveRecipe(recipeProp)
                 const recipeId = recipeProp.id
@@ -76,12 +80,10 @@ export default {
             //     }
             // },
 
-            async remove() {
-                let i = 0;
-                while (i < 5) {
-                    stars[i].id = "star";
-                    i++;
-                }
+
+
+            addStar(star) {
+                logger.log('star', star)
             },
 
             async unfavoriteRecipe(favoriteId) {
