@@ -16,13 +16,13 @@
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input v-model="editable.title" type="text" class="form-control" id="title"
-                                aria-describedby="emailHelp">
+                                aria-describedby="emailHelp" maxlength="255" required>
 
                         </div>
                         <div class="mb-3">
                             <label for="imgUrl" class="form-label">Image Url</label>
                             <input v-model="editable.img" type="text" class="form-control" id="imgUrl"
-                                aria-describedby="emailHelp">
+                                aria-describedby="emailHelp" maxlength="1000" required>
 
                         </div>
                         <div class="mb-3">
@@ -34,7 +34,7 @@
                         <div class="mb-3">
                             <label for="instructions" class="form-label">Instructions</label>
                             <textarea v-model="editable.instructions" type="text" class="form-control" id="instructions"
-                                rows="5"></textarea>
+                                rows="5" maxlength="255" required></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-outline-dark">Submit</button>

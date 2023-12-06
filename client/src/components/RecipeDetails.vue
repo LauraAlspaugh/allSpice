@@ -3,19 +3,18 @@
         <section class="row">
             <div v-if="recipe" class="col-12 text-center">
 
-                <p class="fs-2 recipe-name">{{ recipe.title }}</p>
+                <p class="fs-2 recipe-name" :title="recipe.title">{{ recipe.title }}</p>
             </div>
         </section>
         <section class="row">
             <div class="col-12 mb-2 col-md-4 me-5">
                 <div v-if="recipe">
-                    <img :src="recipe.img" alt="recipe image">
+                    <img :src="recipe.img" title="recipe image" alt="recipe image">
                 </div>
             </div>
             <div v-if="recipe" class="col-12 mb-2 col-md-3 p-4 recipe-details me-5">
                 <p class="fs-4 text-center instruction-name">Instructions</p>
-                <p class="fs-5">{{ recipe.instructions }} <i @click="destroyInstructions(recipe.instructions)"
-                        class="mdi mdi-close fs-4" type="button"></i> </p>
+                <p class="fs-5">{{ recipe.instructions }} </p>
                 <form @submit.prevent="addInstructions()">
                     <div class="mb-3">
                         <label for="instructions" class="form-label"></label>
@@ -45,8 +44,9 @@
                 <p class="fs-4 text-center instruction-name">Ingredients</p>
                 <p v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient-card">{{ ingredient.quantity
                 }} {{ ingredient.name }} <i @click="destroyIngredient(ingredient.id)" class="mdi mdi-close fs-4"
-                        type="button"></i>
-                    <i class="mdi mdi-pencil fs-4 btn" type="button" @click="enableEdit(ingredient)"></i>
+                        type="button" title="delete this ingredient"></i>
+                    <i class="mdi mdi-pencil fs-4 btn" type="button" title="edit this ingredient"
+                        @click="enableEdit(ingredient)"></i>
                 </p>
 
 
@@ -57,13 +57,13 @@
                     <div class="mb-3">
                         <label for="quantity" class="form-label"></label>
                         <input v-model="editable.quantity" type="text" class="form-control" id="quantity"
-                            placeholder="Amount" aria-describedby="emailHelp">
+                            placeholder="Amount" aria-describedby="emailHelp" maxlength="255" required>
 
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label"></label>
                         <input v-model="editable.name" type="text" class="form-control" id="name" placeholder="Name"
-                            aria-describedby="emailHelp">
+                            aria-describedby="emailHelp" maxlength="255" required>
 
                     </div>
 

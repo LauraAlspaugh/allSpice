@@ -3,14 +3,14 @@
         <!-- <section class="row">
             <div class="col-4 "> -->
         <img @click="setActiveRecipe(recipeProp)" type="button" data-bs-toggle="modal" data-bs-target="#recipeModal"
-            class="img-fluid" :src="recipeProp.img" alt="recipe image">
+            class="img-fluid" :src="recipeProp.img" alt="recipe image" :title="recipeProp.title">
         <span v-if="isFavRecipe" @click.stop="unfavoriteRecipe(isFavRecipe.favoriteId)" role="button"><i
-                class="fs-2 mdi mdi-heart text-center"></i></span>
+                class="fs-2 mdi mdi-heart text-center" title="unfavorite this recipe"></i></span>
         <span v-else @click.stop="favoriteRecipe(recipeProp.id)" role="button"><i
-                class="fs-2 mdi mdi-heart-outline text-center"></i></span>
-        <i class="mdi mdi-close fs-2" type="button" @click="destroyRecipe()"></i>
-        <p class="fs-3 text-center recipe-name">{{ recipeProp.title }}</p>
-        <p class="text-center ">{{ recipeProp.category }}</p>
+                class="fs-2 mdi mdi-heart-outline text-center" title="favorite this recipe"></i></span>
+        <i class="mdi mdi-close fs-2" title="delete this recipe" type="button" @click="destroyRecipe()"></i>
+        <p class="fs-3 text-center recipe-name" :title="recipeProp.title">{{ recipeProp.title }}</p>
+        <p class="text-center " :title="recipeProp.category">{{ recipeProp.category }}</p>
         <div class="text-center">
             <span class="justify-content-center d-flex">
                 <i v-for="star in [...Array(stars)].map((n, i) => i + 1)" @click="addStar(star)"

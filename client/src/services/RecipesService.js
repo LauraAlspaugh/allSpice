@@ -77,9 +77,11 @@ class RecipesService {
     async destroyRecipe(recipeId) {
         const res = await api.delete(`api/recipes/${recipeId}`)
         logger.log('destroying recipe', res.data)
-        const recipeIndex = AppState.recipes.findIndex(recipe => recipe.id == recipeId)
-        if (recipeIndex == -1) { throw new Error('No recipe found with this id') }
-        AppState.recipes.splice(recipeIndex, 1)
+        AppState.recipes = AppState.recipes.filter((recipe) => recipe.id != recipeId)
+        AppState.filteredRecipes = AppState.filteredRecipes.filter((recipe) => recipe.id != recipeId)
+        // const recipeIndex = AppState.recipes.findIndex(recipe => recipe.id == recipeId)
+        // if (recipeIndex == -1) { throw new Error('No recipe found with this id') }
+        // AppState.recipes.splice(recipeIndex, 1)
     }
     async destroyInstructions(recipeData, recipeId) {
         const res = await api.put(`api/recipes/${recipeId}`, recipeData)
@@ -116,6 +118,7 @@ class RecipesService {
             AppState.filteredRecipes = AppState.recipes
             return
         } AppState.filteredRecipes = AppState.recipes.filter((recipe) => recipe.category.toLowerCase().includes(editable.toLowerCase()))
+
     }
 }
 export const recipesService = new RecipesService()
