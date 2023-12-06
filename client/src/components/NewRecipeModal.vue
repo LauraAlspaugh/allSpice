@@ -21,15 +21,18 @@
                         </div>
                         <div class="mb-3">
                             <label for="imgUrl" class="form-label">Image Url</label>
-                            <input v-model="editable.img" type="text" class="form-control" id="imgUrl"
+                            <input v-model="editable.img" type="url" class="form-control" id="imgUrl"
                                 aria-describedby="emailHelp" maxlength="1000" required>
 
                         </div>
                         <div class="mb-3">
                             <label for="category" class="form-label">Category</label>
-                            <input v-model="editable.category" type="text" class="form-control" id="category"
+                            <select v-model="editable.category" type="text" class="form-select" id="category"
                                 aria-describedby="emailHelp">
-
+                                <option :value="category" v-for="category in categories" :key="category">
+                                    {{ category }}
+                                </option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="instructions" class="form-label">Instructions</label>
@@ -60,9 +63,10 @@ import { Modal } from 'bootstrap';
 export default {
     setup() {
         const editable = ref({})
-
+        const categories = ["Mexican", "Soup", "Italian", "Specialty Coffee", "Dessert"];
 
         return {
+            categories,
             editable,
             recipes: computed(() => AppState.recipes),
             async createRecipe() {

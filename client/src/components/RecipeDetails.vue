@@ -19,7 +19,7 @@
                     <div class="mb-3">
                         <label for="instructions" class="form-label"></label>
                         <input v-model="editable2.instructions" type="text" class="form-control" id="instructions"
-                            placeholder="Add Instructions" aria-describedby="emailHelp">
+                            placeholder="Add Instructions" aria-describedby="emailHelp" maxlength="255">
                     </div>
 
                     <button type="submit" class="btn btn-outline-dark">Submit</button>
