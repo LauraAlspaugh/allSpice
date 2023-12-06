@@ -3,9 +3,9 @@
     <section class="row home-background p-5">
       <div class="col-12 text-center">
         <p class="text-center p-1 recipe-name">Cherish your family and their cooking.</p>
-        <button class=" rounded-circle recipe-button p-2" type="button" data-bs-toggle="modal"
-          data-bs-target="#newRecipeModal">
-          <i class="mdi mdi-plus fs-2" title="create a recipe"></i></button>
+        <button class="  p-3 fs-5 rounded" type="button" data-bs-toggle="modal" data-bs-target="#newRecipeModal"
+          title="create a recipe">
+          Create a Recipe</button>
 
       </div>
 
