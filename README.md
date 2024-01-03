@@ -1,1 +1,1 @@
-Allspice is an app that allows users to post and share recipes, as well as favorite them. It uses a Vue framework to build out recipe cards and modals. Users can also add and delete ingredients. Uses bootstrap, forms, modals, and javascript. 
+Allspice is an app that allows users to post and share recipes, as well as favorite them. It uses a front-end Vue framework to build out recipe cards and modals, and .Net to build out the back end. Users can also add and delete ingredients. Uses bootstrap, forms, modals, and javascript. 
