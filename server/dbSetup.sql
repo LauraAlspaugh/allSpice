@@ -6,14 +6,17 @@ CREATE TABLE
         name varchar(255) COMMENT 'User Name',
         email varchar(255) COMMENT 'User Email',
         picture varchar(255) COMMENT 'User Picture',
-        bio VARCHAR(255) COMMENT 'User bio'
+        bio VARCHAR(255) COMMENT 'User bio',
+        coverImg VARCHAR(1000) COMMENT 'user cover img'
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
     IF NOT EXISTS recipes(
-        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'id for the recipe',
-        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
-        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT ' id for the recipe ',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT ' Time Created ',
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT ' Last
+        Update
+            ',
         title CHAR(255) NOT NULL,
         instructions CHAR(255) NOT NULL,
         img VARCHAR(1000) NOT NULL,
@@ -25,8 +28,10 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS ingredients(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
-        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT ' Time Created ',
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT ' Last
+        Update
+            ',
         name CHAR(255) NOT NULL,
         quantity CHAR(255) NOT NULL,
         recipeId INT NOT NULL,
@@ -38,8 +43,9 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS favorites(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
-        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT ' Time Created ',
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT ' Last
+        Update ',
         recipeId INT NOT NULL,
         accountId VARCHAR(255) NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes (id) ON DELETE CASCADE,

@@ -24,7 +24,7 @@
 
                     <button type="submit" class="btn btn-outline-dark">Submit</button>
                 </form>
-                <div class=" absolute">
+                <!-- <div class=" absolute">
                     <span><i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
                         <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
                         <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
@@ -37,7 +37,7 @@
 
                     </span>
 
-                </div>
+                </div> -->
             </div>
 
             <div class="col-12 mb-2 col-md-3 p-4 recipe-details">
@@ -69,7 +69,7 @@
 
                     <button type="submit" class="btn btn-outline-dark">Submit</button>
                 </form>
-                <div class=" absolute">
+                <!-- <div class=" absolute">
                     <span><i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
                         <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
                         <i class="mdi mdi-chevron-double-right fs-1 chevron-icon"></i>
@@ -82,7 +82,7 @@
 
                     </span>
 
-                </div>
+                </div> -->
             </div>
 
 
