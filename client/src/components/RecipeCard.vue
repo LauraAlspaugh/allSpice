@@ -8,7 +8,7 @@
                 class="fs-2 mdi mdi-heart text-center" title="unfavorite this recipe"></i></span>
         <span v-else @click.stop="favoriteRecipe(recipeProp.id)" role="button"><i
                 class="fs-2 mdi mdi-heart-outline text-center" title="favorite this recipe"></i></span>
-        <i class="mdi mdi-close fs-2" title="delete this recipe" type="button" @click="destroyRecipe()"></i>
+        <i class="mdi mdi-close fs-2 text-center" title="delete this recipe" type="button" @click="destroyRecipe()"></i>
         <p class="fs-3 text-center recipe-name" :title="recipeProp.title">{{ recipeProp.title }}</p>
         <p class="text-center " :title="recipeProp.category">{{ recipeProp.category }}</p>
         <div class="text-center">
